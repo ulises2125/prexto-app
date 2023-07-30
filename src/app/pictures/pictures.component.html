@@ -1,0 +1,12 @@
+<div class="container-cats">
+  <div class="container-images">
+    <div *ngFor="let img of image" class="image-wrapper">
+      <i
+        class="fa-solid fa-star star"
+        [ngClass]="{ 'is-favorite': img.isFavorite }"
+        (click)="markAsFavorite(img.id)"
+      ></i>
+      <img  [src]="img.url" alt="no-img" class="img-cat" />
+    </div>
+  </div>
+</div>

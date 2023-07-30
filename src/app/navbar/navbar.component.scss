@@ -1,0 +1,26 @@
+.navbar-color {
+  background-color: #4a596c;
+  padding-top: 10px;
+  height: 3rem;
+
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
+  .container-nav {
+    display: flex;
+    justify-content: space-between;
+    .container-navs {
+      display: flex;
+      margin-left: 5rem;
+      gap: 5rem;
+      @media (max-width: 700px) {
+        display: flex;
+        width: 100%;
+      }
+    }
+    .back {
+      margin-right: 1rem;
+    }
+  }
+}

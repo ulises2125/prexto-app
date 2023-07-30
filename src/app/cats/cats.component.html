@@ -1,0 +1,16 @@
+<div>
+  <div class="container-top">
+    <img width="100" src="/assets/logo.png" alt="no-img" />
+    <button class="btn-add" [routerLink]="['/module-cats/create']"[queryParams]="{ edit: false }"><i class="fa-solid fa-plus"></i> Crear</button>
+  </div>
+  <div class="container-images">
+    <div *ngFor="let cat of cats" class="image-wrapper">
+      <img [src]="cat.photo" alt="no-img" class="img-cat" />
+      <span>Nombre: {{cat.name}}</span>
+      <span>Edad: {{cat.age}}</span>
+      <hr>
+      <button class="btn btn btn-light" [queryParams]="{ edit: true }"[routerLink]="['/module-cats/',convertStr(cat._id)]">Editar</button>
+      <button class="btn btn btn-danger" (click)="deleteCat(convertStr(cat._id))">Eliminar</button>
+    </div>
+  </div>
+</div>

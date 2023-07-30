@@ -1,0 +1,21 @@
+.btn-image {
+  margin: 2rem;
+}
+.container-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #4b596d;
+  border-radius: 20px;
+  width: 400px;
+  padding: 2rem;
+  > * {
+    width: 100%;
+  }
+  label {
+    color: #fff;
+  }
+  input {
+    width: 100%;
+  }
+}
