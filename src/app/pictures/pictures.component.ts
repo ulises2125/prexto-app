@@ -50,10 +50,6 @@ export class PicturesComponent {
           this.images[index].isFavorite = isFavorite;
         },
       });
-
-      // Opcionalmente, si necesitas guardar la suscripción para luego cancelarla si es necesario
-      // puedes hacerlo así:
-      // this.subscriptions.push(subscription);
     }
   }
 }
