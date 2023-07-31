@@ -16,7 +16,11 @@ export class PicturesService {
   }
 
   markImageAsFavorite(id: string): Observable<Image> {
-    return this.http.post<Image>(`${environment.apiUrl}/images/favorites`, id);
+    const body = { id: id };
+    return this.http.post<Image>(
+      `${environment.apiUrl}/images/favorites`,
+      body
+    );
   }
 
   getAllFavoritesImages(): Observable<Image[]> {

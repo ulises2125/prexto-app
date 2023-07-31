@@ -1,6 +1,35 @@
-.btn-image {
-  margin: 2rem;
+.div-form-createedit {
+  display: grid;
+  grid-template-columns: 20% 60%;
+  margin: 5rem;
+
+  @media (max-width: 1400px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
+
+.btn-image {
+  width: 25rem;
+  .div-card-collapse {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .images-favorites {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
 .container-form {
   display: flex;
   flex-direction: column;

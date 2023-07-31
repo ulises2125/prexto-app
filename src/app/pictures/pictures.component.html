@@ -1,12 +1,14 @@
-<div class="container-cats">
+<div class="container-cats" *ngIf="allImagesLoaded">
+  <h3>Elige tus imagenes favoritas</h3>
   <div class="container-images">
-    <div *ngFor="let img of image" class="image-wrapper">
+    <div *ngFor="let img of images" class="image-wrapper">
       <i
         class="fa-solid fa-star star"
         [ngClass]="{ 'is-favorite': img.isFavorite }"
         (click)="markAsFavorite(img.id)"
       ></i>
-      <img  [src]="img.url" alt="no-img" class="img-cat" />
+      <img  [lazyLoad]="img.url" [defaultImage]="'/assets/mdi_cat.png'" alt="no-img" class="img-cat" />
     </div>
   </div>
+  
 </div>

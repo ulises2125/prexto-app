@@ -8,35 +8,52 @@ import { PicturesService } from '../services/pictures/pictures.service';
   styleUrls: ['./pictures.component.scss'],
 })
 export class PicturesComponent {
-  image: Image[] = [];
+  images: Image[] = [];
+  allImagesLoaded: boolean = false;
+  favoriteImages: Image[] = [];
   constructor(private pictureService: PicturesService) {}
 
   ngOnInit() {
     this.pictureService.getRandomCatsImages().subscribe((images) => {
-      this.image = images;
+      this.images = images;
+      this.allImagesLoaded = true;
     });
   }
 
-  markAsFavorite(id: string): void {
-    this.pictureService.markImageAsFavorite(id).subscribe({
-      next: (favoriteImage: Image) => {
-        // Código para manejar la respuesta exitosa (cuando se recibe la imagen marcada como favorita)
-        console.log('Imagen marcada como favorita:', favoriteImage);
+  markAsFavorite(imageId: string) {
+    const index = this.images.findIndex((img) => img.id === imageId);
+    if (index !== -1) {
+      const isFavorite = this.images[index].isFavorite;
 
-        // A continuación, actualiza la propiedad 'isFavorite' de la imagen con el id correspondiente en el arreglo 'image'
-        const imageIndex = this.image.findIndex((img) => img.id === id);
-        if (imageIndex !== -1) {
-          this.image[imageIndex].isFavorite = true;
-        }
-      },
-      error: (error: any) => {
-        // Código para manejar el error, si ocurre alguno
-        console.error('Error al marcar imagen como favorita:', error);
-      },
-      complete: () => {
-        // Código para manejar la finalización del Observable, si es necesario
-        console.log('Suscripción completada');
-      },
-    });
+      // Llamar al servicio para marcar o desmarcar la imagen como favorita
+      this.pictureService.markImageAsFavorite(imageId).subscribe({
+        next: () => {
+          this.images[index].isFavorite = !isFavorite; // Actualizar el estado local
+
+          // Si la imagen es favorita, la quitamos del arreglo de imágenes favoritas
+          if (isFavorite) {
+            const favoriteIndex = this.favoriteImages.findIndex(
+              (img) => img.id === imageId
+            );
+            if (favoriteIndex !== -1) {
+              this.favoriteImages.splice(favoriteIndex, 1);
+            }
+          } else {
+            // Si la imagen no es favorita, la agregamos al arreglo de imágenes favoritas
+            this.favoriteImages.push(this.images[index]);
+          }
+        },
+        error: (error) => {
+          // Manejar el error en caso de que la llamada al servicio falle
+          console.error('Error al marcar la imagen como favorita:', error);
+          // Restaurar el estado anterior en caso de error
+          this.images[index].isFavorite = isFavorite;
+        },
+      });
+
+      // Opcionalmente, si necesitas guardar la suscripción para luego cancelarla si es necesario
+      // puedes hacerlo así:
+      // this.subscriptions.push(subscription);
+    }
   }
 }

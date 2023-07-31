@@ -1,28 +1,78 @@
-<div>
+<div class="div-form-createedit" *ngIf="dataLoaded">
   <div class="btn-image">
-    <button class="btn btn-primary">Imagenes</button>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <button
+            type="button"
+            class="btn"
+            (click)="toggleCollapse()"
+            [attr.aria-expanded]="!isCollapsed"
+            aria-controls="collapseExample"
+          >
+            Lista de imagenes favoritas
+          </button>
+        </mat-expansion-panel-header>
+        <p>Seleccione una imagen para agregar</p>
+        <div class="images-favorites">
+          <img
+            *ngFor="let img of favoriteImages"
+            width="110"
+            height="100"
+            [src]="img.url"
+            [alt]="img.id"
+            [class.selected]="img.url === selectedImage"
+            (click)="selectImage(img.url)"
+          />
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
   <div class="d-flex justify-content-center align-items-center">
-    <form>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="container-form">
         <div class="form-group mb-2">
           <label>Nombre</label>
-          <input class="form-control" placeholder="Nombre" type="text" />
+          <input
+            class="form-control"
+            placeholder="Nombre"
+            type="text"
+            id="name"
+            formControlName="name"
+          />
         </div>
         <div class="form-group mb-2">
           <label>Raza</label>
-          <input class="form-control" placeholder="Raza" type="text" />
+          <input
+            class="form-control"
+            placeholder="Raza"
+            type="text"
+            id="raza"
+            formControlName="race"
+          />
         </div>
         <div class="form-group mb-2">
           <label>Edad</label>
-          <input class="form-control" placeholder="Edad" type="number" />
+          <input
+            class="form-control"
+            placeholder="Edad"
+            type="number"
+            id="edad"
+            formControlName="age"
+          />
         </div>
-        <img src="/assets/mdi_cat.png" />
-      </div>
-      <div class="d-flex justify-content-evenly p-1">
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <button class="btn btn-danger">Cancelar</button>
-      </div>
+        <img
+        width="100"
+        height="300"
+        [lazyLoad]="selectedImage ? selectedImage : (form.get('photo')?.value ?? '/assets/mdi_cat.png')"
+        [defaultImage]="'/assets/mdi_cat.png'"
+        alt="Imagen seleccionada"
+      />
+        </div>
+        <div class="d-flex justify-content-evenly p-1">
+          <button type="submit" class="btn btn-success">Guardar</button>
+          <button class="btn btn-danger" (click)="onCancel()">Cancelar</button>
+        </div>
     </form>
   </div>
 </div>
