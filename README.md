@@ -42,8 +42,9 @@ Para probar este proyecto en tu entorno local, sigue los siguientes pasos:
 
 Crear una carpeta llamada environments dentro de la carpeta src, se debera crear un archivo llamado
 environment.ts que contendra lo siguiente:
-'''
+
+```
 export const environment = {
 apiUrl: 'http://localhost:3000',
 };
-'''
+```
